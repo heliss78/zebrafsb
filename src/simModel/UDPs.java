@@ -1,12 +1,29 @@
 package simModel;
 
+import cern.jet.random.EmpiricalWalker;
+
+
 class UDPs 
 {
-	ModelName model;  // for accessing the clock
+	FSB model;  // for accessing the clock
 	
 	// Constructor
-	protected UDPs(ModelName model) { this.model = model; }
+	protected UDPs(FSB model) { this.model = model; }
 
+	
+	public LoanApplication.uOrigin getID(FSB model) {
+		
+		LoanApplication.uOrigin uOrig;
+		uOrig = LoanApplication.uOrigin.BOISE;
+		
+		
+		
+		
+		return uOrig;
+		
+		
+		
+	}
 	// Translate User Defined Procedures into methods
     /*-------------------------------------------------
 	                       Example

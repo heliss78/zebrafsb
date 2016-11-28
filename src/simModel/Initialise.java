@@ -4,10 +4,10 @@ import simulationModelling.ScheduledAction;
 
 class Initialise extends ScheduledAction
 {
-	ModelName model;
+	FSB model;
 	
 	// Constructor
-	protected Initialise(ModelName model) { this.model = model; }
+	protected Initialise(FSB model) { this.model = model; }
 
 	double [] ts = { 0.0, -1.0 }; // -1.0 ends scheduling
 	int tsix = 0;  // set index to first entry.
@@ -18,6 +18,14 @@ class Initialise extends ScheduledAction
 
 	protected void actionEvent() 
 	{
+		/*for(int i =0;i<6;i++){
+			model.rgOfficers[i].numOfficers = model.rgOfficers[i].numOfficers;
+			
+		}*/
+			
+		
+		
+		
 		// System Initialisation
                 // Add initilisation instructions 
 	}

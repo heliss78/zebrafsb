@@ -20,15 +20,25 @@ class RVPs
 	protected RVPs(FSB model, Seeds sd) 
 	{ 
 		this.model = model; 
+		DETMIN = (this.model.dataEntryAvgTime * 0.75);
+		DETMAX = (model.dataEntryAvgTime * 1.25);
+		
+		DPTMIN = (model.districtProcessingAvgTime * 0.75);
+		DPTMAX = (model.districtProcessingAvgTime * 1.25);
+		
+		DPTWEMIN = ((model.districtProcessingAvgTime * 0.75) + 6);
+		DPTWEMAX = ((model.districtProcessingAvgTime * 1.25) + 6);
+		
 		// Set up distribution functions
 		dataEntryTimeDist = new Uniform(DETMIN,DETMAX,sd.seed1);
 		districtProcessingTimeDist = new Uniform(DPTMIN,DPTMAX,sd.seed1);
 		districtProcessingTimeWEDist =  new Uniform(DPTWEMIN,DPTWEMAX,sd.seed1);
 		interArrDist = new Exponential(1.0/WMEAN1,  
 				                       new MersenneTwister(sd.seed1));
-		appLocationDM = new EmpiricalWalker(appLocationPDF,
+		uOriginDM = new EmpiricalWalker(appLocationPDF,
       		   Empirical.NO_INTERPOLATION,
       		   new MersenneTwister(sd.seed1));
+		
 	}
 	
 	
@@ -40,13 +50,14 @@ class RVPs
 	
 	//////Random Variate Procedure uDataEntryTime
 	private Uniform dataEntryTimeDist;
-	final static double DETMIN = 3;
-	final static double DETMAX = 5;
+	final double DETMIN; 
+	final double DETMAX; 
 	
 	protected double uDataEntryTime(){
 		
 		
 		double dataEntryTime = dataEntryTimeDist.nextDouble();
+	
 		return dataEntryTime;
 		
 	}
@@ -61,24 +72,24 @@ class RVPs
 	final static double DIST6 = 0.112;
 	
 	private final double [] appLocationPDF = { DIST1, DIST2, DIST3,DIST4,DIST5,DIST6 }; // for creating discrete PDF
-	private EmpiricalWalker appLocationDM; 
-	Application.AppLocation uLoanAppOrigin()
+	private EmpiricalWalker uOriginDM; 
+	LoanApplication.uOrigin uLoanAppOrigin()
 	{
-		Application.AppLocation loc;		
-		switch(appLocationDM.nextInt())
+		LoanApplication.uOrigin loc;		
+		switch(uOriginDM.nextInt())
 		{
 		
-		   case 0: loc = Application.AppLocation.COUER_ALENE; break;
-		   case 1: loc = Application.AppLocation.LEWISTON; break;
-		   case 2: loc = Application.AppLocation.BOISE; break;
-		   case 3: loc = Application.AppLocation.SHOSONE; break;
-		   case 4: loc = Application.AppLocation.POCATELLO; break;
-		   case 5: loc = Application.AppLocation.RIGBY; break;
+		   case 0: loc = LoanApplication.uOrigin.COUER_ALENE; break;
+		   case 1: loc = LoanApplication.uOrigin.LEWISTON; break;
+		   case 2: loc = LoanApplication.uOrigin.BOISE; break;
+		   case 3: loc = LoanApplication.uOrigin.SHOSONE; break;
+		   case 4: loc = LoanApplication.uOrigin.POCATELLO; break;
+		   case 5: loc = LoanApplication.uOrigin.RIGBY; break;
 		   
 		   
 		   default: 
-			   System.out.println("Application Origin returned invalid value");
-		   	   loc = Application.AppLocation.BOISE;		// back to headquareters   	
+			   System.out.println("LoanApplication Origin returned invalid value");
+		   	   loc = LoanApplication.uOrigin.BOISE;		// back to headquareters   	
 		}
 		return(loc);
 	}
@@ -90,17 +101,17 @@ class RVPs
 	private Uniform districtProcessingTimeDist;
 	private Uniform districtProcessingTimeWEDist;
 	
-	final static double DPTMIN = 12;
-	final static double DPTMAX = 20;
+	final double DPTMIN;
+	final double DPTMAX;
 	
-	final static double DPTWEMIN = 18;
-	final static double DPTWEMAX = 26;
+	final double DPTWEMIN;
+	final double DPTWEMAX;
 	
-	protected double uDistrictPorcessingTime(boolean testEr) {
+	protected double uDistrictPorcessingTime() {
 		//boolean testEr = true;
 		double districtProcessingTime;
-		
-		if(testEr)
+		double rnum = Math.random();
+		if(rnum<model.pcntError)
 			districtProcessingTime = districtProcessingTimeWEDist.nextDouble();
 		else
 			districtProcessingTime = districtProcessingTimeDist.nextDouble();
@@ -108,7 +119,7 @@ class RVPs
 		return districtProcessingTime;
 	}
 	
-	protected double duInput()  // for getting next value of duInput
+	protected double duLoanAppArrival()  // for getting next value of duInput
 	{
 	    double nextTime;
 	    if(firstApplication) {
