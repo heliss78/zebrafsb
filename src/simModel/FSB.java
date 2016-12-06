@@ -9,51 +9,34 @@ import simulationModelling.SequelActivity;
 //
 // The Simulation model Class
 public class FSB extends AOSimulationModel
-{
-	// Constants available from Constants class
-	/* Parameter */
-        // Define the parameters
-	
-	
-
+{  
+	public int id;
+    // GAComment: Parameters should be declared here, in partcilar the pcntError, DataEntryAvgTime, districtProcessingAvgTime.
 	/*-------------Entity Data Structures-------------------*/
-	
-
-
-	
-	
 	
 	/* Group and Queue Entities */
 	protected ArrayList<LoanApplication> qDataEntryWaiting = new ArrayList<LoanApplication>();
-	
-	//protected ArrayList<LoanApplication> qApprovalWaiting = new ArrayList<LoanApplication>();
-	protected ArrayList<ArrayList<LoanApplication>> qApprovalSet = new ArrayList<ArrayList<LoanApplication>>();
-	//protected ArrayList<LoanApplication>[] aa = new ArrayList<LoanApplication>[6];
-	
-	
-	//LoanApplication[] l;
-	// Define the reference variables to the various 
-	// entities with scope Set and Unary
-	
-	
-	// Objects can be created here or in the Initialise Action
+	// GAComment: This should be ArrayList<LoanAppication> since it is a queue of loan applications.  here you have declared a lists of lists.
+	//  Actually what you want is an array of ArrayList objects, that is ArrayList<LoanApplications> [] qApprovalWaiting = new ArrayList[6]
+	//  This will make the SM consistent with the CM (i.e. its concept of Set).
+	//protected ArrayList<ArrayList<LoanApplication>> qApprovalSet = new ArrayList<ArrayList<LoanApplication>>();
+	@SuppressWarnings("unchecked")
+	protected ArrayList<LoanApplication>[] qApprovalSet = new ArrayList[6];
 
-	/* Input Variables */
-	// Define any Independent Input Varaibles here
-	
-	// References to RVP and DVP objects
 	protected RVPs rvp;  // Reference to rvp object - object created in constructor
-	
+	UDPs udp = new UDPs(this);
 	
 	// Output object
 	protected Output output = new Output(this);
 	
 	// Output values - define the public methods that return values
 	// required for experimentation.
+	// GAComment: the following are parmeters, please move above, before Entity Data Structures
 	double pcntError;
 	double dataEntryAvgTime;
 	double districtProcessingAvgTime;
 
+	// GAComment: please move above to the Entity Data Structures section.
 	public Officers[] rgOfficers = new Officers[6];
 	HQDataClerks rgHQDataClerks = new HQDataClerks();
 	
@@ -72,19 +55,29 @@ public class FSB extends AOSimulationModel
 			double districtProcessingAvgTime,/*define other args,*/ Seeds sd)
 	{
 		
-		// Initialise parameters here
+		// Initialise parameters here  
+		// GAComment - careful about indentation
+	// GAComment - no clear what is happeing here. There there is one array list added - you need 6
+	//             in fact, use an array of ArrayLists to implement qApprovalWaiting (see above comments)
+	/*	for (int i =0;i<6;i++){
+			
+		
 	 ArrayList<LoanApplication> qApprovalWaiting = new ArrayList<LoanApplication>();
-	 qApprovalSet.add(qApprovalWaiting);
-		
-		
+	 //qApprovalSet.add(qApprovalWaiting);
+	 qApprovalSet[i] = qApprovalWaiting[i];
+		}
+		*/
+	// GAComment - some of this initialisation can be moved to the Initailize action (e.g. update of the numOfficers attributes.	
 		rgHQDataClerks.numClerks = nDataClerks;
 		this.pcntError = pcntError;
 		this.dataEntryAvgTime = dataEntryAvgTime;
+		System.out.println("DATA ENTRY AVG TIME " + dataEntryAvgTime);
 		this.districtProcessingAvgTime = districtProcessingAvgTime;
 		
 		for(int i =0;i<6;i++){
 			rgOfficers[i] = new Officers();
 			rgOfficers[i].numOfficers = nOfficersDistricts[i];
+			//System.out.println("NUMBER OF OFFICERS " +nOfficersDistricts[i]);
 			
 		}
 		
@@ -92,7 +85,7 @@ public class FSB extends AOSimulationModel
 		
 		// Create RVP object with given seed
 		rvp = new RVPs(this,sd);
-		initAOSimulModel(t0time,tftime+60);
+		initAOSimulModel(t0time);
 		
 		// rgCounter and qCustLine objects created in Initalise Action
 		
@@ -128,6 +121,10 @@ public class FSB extends AOSimulationModel
 		if(DataEntry.precondition(this) == true)
 		{
 			DataEntry act = new DataEntry(this);
+			rgHQDataClerks.print();
+			System.out.println(" SIZE OF DATA ENTRY QUEUE -> " +this.qDataEntryWaiting.size() +" with group variable -> " + rgHQDataClerks.getN());
+			System.out.println(" Location of loan app  -> " +this.qDataEntryWaiting.get(0).uOrig );
+			
 			act.startingEvent();
 			scheduleActivity(act);
 			statusChanged = true;
@@ -136,7 +133,16 @@ public class FSB extends AOSimulationModel
 		{
 			LoanApproval act = new LoanApproval(this);
 			act.startingEvent();
+			
+			System.out.println(" SIZE OF DATA ENTRY QUEUE IN LOAN APPROVAL -> " +this.qDataEntryWaiting.size() +" with group vaiable of loan officers at boise -> " +  rgOfficers[0].getN() );
+		//	System.out.println(" Location of loan app IN LOAN APPROVAL -> " +this.qDataEntryWaiting.get(0).uOrig);
 			scheduleActivity(act);
+			System.out.println(" Dist1 -> " +  rgOfficers[1].getN() );
+			System.out.println(" Dist2 -> " +  rgOfficers[2].getN() );
+			System.out.println(" Dist3 -> " +  rgOfficers[3].getN() );
+			System.out.println(" Dist4 -> " +  rgOfficers[4].getN() );
+			System.out.println(" Dist5 -> " +  rgOfficers[5].getN() );
+			
 			statusChanged = true;
 		}
 		return (statusChanged);
@@ -144,6 +150,7 @@ public class FSB extends AOSimulationModel
 	
 	public void eventOccured()
 	{
+		// GAComment: missing log section
 		this.showSBL();
 		// Can add other debug code to monitor the status of the system
 		// See examples for suggestions on setup logging

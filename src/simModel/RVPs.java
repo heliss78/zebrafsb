@@ -20,7 +20,7 @@ class RVPs
 	protected RVPs(FSB model, Seeds sd) 
 	{ 
 		this.model = model; 
-		DETMIN = (this.model.dataEntryAvgTime * 0.75);
+		DETMIN = (model.dataEntryAvgTime * 0.75);
 		DETMAX = (model.dataEntryAvgTime * 1.25);
 		
 		DPTMIN = (model.districtProcessingAvgTime * 0.75);
@@ -41,7 +41,7 @@ class RVPs
 		
 	}
 	
-	
+	// GAComment - move the following declarations to the method duLoandAppArrival.
 	/* Random Variate Procedure for Arrivals */
 	private Exponential interArrDist;  // Exponential distribution for interarrival times
 	private final double WMEAN1=3.8;
@@ -73,24 +73,10 @@ class RVPs
 	
 	private final double [] appLocationPDF = { DIST1, DIST2, DIST3,DIST4,DIST5,DIST6 }; // for creating discrete PDF
 	private EmpiricalWalker uOriginDM; 
-	LoanApplication.uOrigin uLoanAppOrigin()
+	
+	int uLoanAppOrigin()
 	{
-		LoanApplication.uOrigin loc;		
-		switch(uOriginDM.nextInt())
-		{
-		
-		   case 0: loc = LoanApplication.uOrigin.COUER_ALENE; break;
-		   case 1: loc = LoanApplication.uOrigin.LEWISTON; break;
-		   case 2: loc = LoanApplication.uOrigin.BOISE; break;
-		   case 3: loc = LoanApplication.uOrigin.SHOSONE; break;
-		   case 4: loc = LoanApplication.uOrigin.POCATELLO; break;
-		   case 5: loc = LoanApplication.uOrigin.RIGBY; break;
-		   
-		   
-		   default: 
-			   System.out.println("LoanApplication Origin returned invalid value");
-		   	   loc = LoanApplication.uOrigin.BOISE;		// back to headquareters   	
-		}
+		int loc = uOriginDM.nextInt();		
 		return(loc);
 	}
 	

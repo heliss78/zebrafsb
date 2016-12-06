@@ -3,7 +3,7 @@ package simModel;
 import simulationModelling.ScheduledAction;
 public class AppArrival extends ScheduledAction {
 
-	
+	int id = 1;
 	
 	FSB model;
 	AppArrival(FSB model){this.model = model;}
@@ -17,8 +17,10 @@ public class AppArrival extends ScheduledAction {
 	@Override
 	protected void actionEvent() {
 		LoanApplication icLoanApplication = new LoanApplication();
+		icLoanApplication.id = this.id;
+		id++;
 		icLoanApplication.uOrig = model.rvp.uLoanAppOrigin();
-		icLoanApplication.startWait = model.getClock();
+		icLoanApplication.startTime = model.getClock();
 		icLoanApplication.endDataEntryTime = 0.0;
 		model.qDataEntryWaiting.add(icLoanApplication);
 		

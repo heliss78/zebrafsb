@@ -5,14 +5,14 @@ import simulationModelling.OutputSequence;
 class Output 
 {
 	FSB model;
-	
+	// GAComment: in the CM 6 sequences are defined, should phiICapprovalTurnAround be an array of OutputSequence objects
 	protected OutputSequence phiICapprovalTurnAround;
 	protected OutputSequence phiICtotalTurnAround;
 	
 	
 	protected Output(FSB md) { this.model = md; 
-	
-	phiICapprovalTurnAround = model.getClock() - 2;
+	// GAComment: careful with indentation.
+	phiICapprovalTurnAround = new OutputSequence("ApprovalTurnAround");
 	phiICtotalTurnAround = new OutputSequence("TotalTurnAround");
 	
 	
@@ -20,6 +20,7 @@ class Output
 	}
 	
 	protected double getAvgApprovalTurnAroundTime(){
+		// GAComment: need to build an array of 5 double values to provide the 6 output values, one from each district
 		phiICapprovalTurnAround.computePhiDSOVs();
 		return(phiICapprovalTurnAround.getMean());
 		
@@ -27,6 +28,7 @@ class Output
 	
 	protected double getAvgTotalTurnAroundTime(){
 		phiICtotalTurnAround.computePhiDSOVs();
+		//GAComment - what is the followint output about?
 		System.out.println("PHI AROUND TIME  ______" + phiICtotalTurnAround.getMean());
 		System.out.println("PHI AROUND TIME  ______" + phiICtotalTurnAround.getMean());
 		System.out.println("PHI AROUND TIME  ______" + phiICtotalTurnAround.getMean());

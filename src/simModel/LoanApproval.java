@@ -4,6 +4,7 @@ public class LoanApproval extends ConditionalActivity {
 
 	FSB model;
 	LoanApplication icLoanApplication;
+	// GAComment: the district id should be a class variable so it can be seen by all methods
 	
 	public LoanApproval(FSB model) {this.model = model;
 	
@@ -14,8 +15,8 @@ public static boolean precondition(FSB model) {
 		//icLoanApplication = model.qDataEntryWaiting.remove(0);
 		//icLoanApplication.
 		
-		
-	return(model.qApprovalSet.get(0).size() !=0 && model.rgOfficers[0].n < model.rgOfficers[0].numOfficers);
+	// GAComment:  should be model.udp.LoanApplicationAvailable() != NONE
+	return(model.udp.LoanApplicationAvailable() >-1);
 		//return(model.qApprovalSet.get(model.rvp.uLoanAppOrigin()).size() !=0 && model.rgOfficers[0].n < model.rgOfficers[0].numOfficers);
 		//return (model.qDataEntryWaiting.size() !=0 && model.rgHQDataClerks.n < model.rgHQDataClerks.numClerks);
 	}
@@ -24,17 +25,19 @@ public static boolean precondition(FSB model) {
 		
 		
 		// TODO Auto-generated method stub
+		// GAComent - check the name Porcessing, not Processing
 		return model.rvp.uDistrictPorcessingTime();
 	}
 
 	@Override
 	public void startingEvent() {
 		
-		
-		icLoanApplication = model.qApprovalSet.get(0).remove(0);
-		
-		model.rgOfficers[0].insert(icLoanApplication);
-		model.rgOfficers[0].n++;
+		// GAComment: again qApprovalSet not consistent with CM.
+		//            Need to use UDP to get id of entity Q.ApprovalWaiting
+		icLoanApplication = model.qApprovalSet[icLoanApplication.uOrig].remove(0);
+		// GAComment: note the 0
+		model.rgOfficers[icLoanApplication.uOrig].insert(icLoanApplication);
+		//model.rgOfficers[icLoanApplication.uOrig].n++;
 		
 		
 		
@@ -47,9 +50,10 @@ public static boolean precondition(FSB model) {
 	@Override
 	protected void terminatingEvent() {
 		
-		
+		// GAComment: should be updating one of 6 sample sequences (for the specific district.
 		model.output.phiICapprovalTurnAround.put(model.getClock(), model.getClock()-icLoanApplication.endDataEntryTime);
-		model.output.phiICtotalTurnAround.put(model.getClock(), icLoanApplication.startWait);
+		// GAComment: Not consistent with CM - note how the turnaround time is calculated
+		model.output.phiICtotalTurnAround.put(model.getClock(), model.getClock()-icLoanApplication.startTime);
 		
 		model.rgOfficers[0].remove(icLoanApplication);
 		
