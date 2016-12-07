@@ -29,12 +29,7 @@ class Output
 	protected double getAvgTotalTurnAroundTime(){
 		phiICtotalTurnAround.computePhiDSOVs();
 		//GAComment - what is the followint output about?
-		System.out.println("PHI AROUND TIME  ______" + phiICtotalTurnAround.getMean());
-		System.out.println("PHI AROUND TIME  ______" + phiICtotalTurnAround.getMean());
-		System.out.println("PHI AROUND TIME  ______" + phiICtotalTurnAround.getMean());
-		System.out.println("PHI AROUND TIME  ______" + phiICtotalTurnAround.getMean());
-		System.out.println("PHI AROUND TIME  ______" + phiICtotalTurnAround.getMean());
-		System.out.println("PHI AROUND TIME  ______" + phiICtotalTurnAround.getMean());
+		System.out.println("TOTAL TURN AROUND TIME  ______" + phiICtotalTurnAround.getMean());
 
 		return(phiICtotalTurnAround.getMean());
 		

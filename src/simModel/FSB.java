@@ -20,8 +20,9 @@ public class FSB extends AOSimulationModel
 	//  Actually what you want is an array of ArrayList objects, that is ArrayList<LoanApplications> [] qApprovalWaiting = new ArrayList[6]
 	//  This will make the SM consistent with the CM (i.e. its concept of Set).
 	//protected ArrayList<ArrayList<LoanApplication>> qApprovalSet = new ArrayList<ArrayList<LoanApplication>>();
-	@SuppressWarnings("unchecked")
-	protected ArrayList<LoanApplication>[] qApprovalSet = new ArrayList[6];
+	
+	protected ArrayList<LoanApplication>[] qApprovalSet = (ArrayList<LoanApplication>[])new ArrayList[6];
+	//qApprovalSet = new ArrayList<LoanApplication>[6];
 
 	protected RVPs rvp;  // Reference to rvp object - object created in constructor
 	UDPs udp = new UDPs(this);
@@ -59,19 +60,21 @@ public class FSB extends AOSimulationModel
 		// GAComment - careful about indentation
 	// GAComment - no clear what is happeing here. There there is one array list added - you need 6
 	//             in fact, use an array of ArrayLists to implement qApprovalWaiting (see above comments)
-	/*	for (int i =0;i<6;i++){
+		for (int i =0;i<6;i++){
+			qApprovalSet[i] = new ArrayList<LoanApplication>();
 			
 		
-	 ArrayList<LoanApplication> qApprovalWaiting = new ArrayList<LoanApplication>();
+	 //ArrayList<LoanApplication> qApprovalWaiting = new ArrayList<LoanApplication>();
 	 //qApprovalSet.add(qApprovalWaiting);
-	 qApprovalSet[i] = qApprovalWaiting[i];
+			
+	// qApprovalSet[i] = qApprovalWaiting[i];
 		}
-		*/
+		
 	// GAComment - some of this initialisation can be moved to the Initailize action (e.g. update of the numOfficers attributes.	
 		rgHQDataClerks.numClerks = nDataClerks;
 		this.pcntError = pcntError;
 		this.dataEntryAvgTime = dataEntryAvgTime;
-		System.out.println("DATA ENTRY AVG TIME " + dataEntryAvgTime);
+		
 		this.districtProcessingAvgTime = districtProcessingAvgTime;
 		
 		for(int i =0;i<6;i++){

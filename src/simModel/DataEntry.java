@@ -44,7 +44,9 @@ public class DataEntry extends ConditionalActivity {
 		// GAComment: Why is the sample sequence updated here (and with the time noless).  According to the CM, the sample sequences are updated at the end of the Approval Activity.
 		//model.output.phiICtotalTurnAround.put(model.getClock(), icLoanApplication.endDataEntryTime);
 		model.rgHQDataClerks.remove(icLoanApplication);
-		model.qApprovalSet[icLoanApplication.uOrig].add(icLoanApplication);  // GAComment: this should be model.qApprovalWaiting[icLoanApplication.uOrigin].icLoanApplication
+		model.qApprovalSet[icLoanApplication.uOrig].add(icLoanApplication); 
+		System.out.println("DATA ENTRY AVG TIME: " + (icLoanApplication.endDataEntryTime-icLoanApplication.startTime));
+		// GAComment: this should be model.qApprovalWaiting[icLoanApplication.uOrigin].icLoanApplication
 		                                                   // Inconsistence defnition of the SET of ApprovalWaiting entities.  Name is wrong.
 		                                                   // Finally all applications are added to Q.ApprovalWiating[0]
 		//model.rgHQDataClerks.n--;

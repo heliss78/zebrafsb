@@ -27,6 +27,7 @@ public static boolean precondition(FSB model) {
 		// TODO Auto-generated method stub
 		// GAComent - check the name Porcessing, not Processing
 		return model.rvp.uDistrictPorcessingTime();
+		
 	}
 
 	@Override
@@ -34,7 +35,8 @@ public static boolean precondition(FSB model) {
 		
 		// GAComment: again qApprovalSet not consistent with CM.
 		//            Need to use UDP to get id of entity Q.ApprovalWaiting
-		icLoanApplication = model.qApprovalSet[icLoanApplication.uOrig].remove(0);
+		//icLoanApplication = model.qApprovalSet.get(icLoanApplication.uOrig).remove(0);
+		icLoanApplication = model.qApprovalSet[model.udp.LoanApplicationAvailable()].remove(0);
 		// GAComment: note the 0
 		model.rgOfficers[icLoanApplication.uOrig].insert(icLoanApplication);
 		//model.rgOfficers[icLoanApplication.uOrig].n++;
@@ -56,6 +58,7 @@ public static boolean precondition(FSB model) {
 		model.output.phiICtotalTurnAround.put(model.getClock(), model.getClock()-icLoanApplication.startTime);
 		
 		model.rgOfficers[0].remove(icLoanApplication);
+		System.out.println("LOAN APPROVAL TURN AROUND TIME: " +(model.getClock()-icLoanApplication.endDataEntryTime ));
 		
 		
 		// TODO Auto-generated method stub

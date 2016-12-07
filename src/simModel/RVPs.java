@@ -44,7 +44,7 @@ class RVPs
 	// GAComment - move the following declarations to the method duLoandAppArrival.
 	/* Random Variate Procedure for Arrivals */
 	private Exponential interArrDist;  // Exponential distribution for interarrival times
-	private final double WMEAN1=3.8;
+	private final double WMEAN1=0.6;
 	private boolean firstApplication = true;
 	
 	

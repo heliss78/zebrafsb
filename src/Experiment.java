@@ -12,7 +12,7 @@ class Experiment
    {
     
        int numClerks = 30;
-       int[] numOfficers = {4,2,6,3,2,2};
+       int[] numOfficers = {1,1,1,1,1,1};
        double pcntError = 0.1;
        
        
@@ -28,8 +28,8 @@ class Experiment
        // Loop for NUMRUN simulation runs for each case
        // Case 1
        System.out.println(" Case 1");
-       double turnaroundTime = 21;
-       while (turnaroundTime > 20){
+       double turnaroundTime = 41;
+       while (turnaroundTime > 28){
     	   
     		   
     		   FSB mname = new FSB(startTime,endTime,numClerks,numOfficers,pcntError,6,20,sds);
@@ -42,8 +42,9 @@ class Experiment
     		   
     		   for (int i = 0; i < 6; i++){
     			   
-    			   if (turnaroundTime > 20)
-    				   mname.rgOfficers[i].numOfficers++;
+    			   if (turnaroundTime > 28)
+    				   numOfficers[i]++;
+    			   System.out.println("number of officers at district: " +i+" "+ mname.rgOfficers[i].numOfficers); 
     		   }
        }
           // See examples for hints on collecting output

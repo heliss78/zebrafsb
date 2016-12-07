@@ -18,11 +18,13 @@ public class AppArrival extends ScheduledAction {
 	protected void actionEvent() {
 		LoanApplication icLoanApplication = new LoanApplication();
 		icLoanApplication.id = this.id;
+		System.out.println("APPLICATION ID IS: " + id);
 		id++;
 		icLoanApplication.uOrig = model.rvp.uLoanAppOrigin();
 		icLoanApplication.startTime = model.getClock();
 		icLoanApplication.endDataEntryTime = 0.0;
 		model.qDataEntryWaiting.add(icLoanApplication);
+		
 		
 		// TODO Auto-generated method stub
 		
