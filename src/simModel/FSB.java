@@ -21,6 +21,7 @@ public class FSB extends AOSimulationModel
 	//  This will make the SM consistent with the CM (i.e. its concept of Set).
 	//protected ArrayList<ArrayList<LoanApplication>> qApprovalSet = new ArrayList<ArrayList<LoanApplication>>();
 	
+	@SuppressWarnings("unchecked")
 	protected ArrayList<LoanApplication>[] qApprovalSet = (ArrayList<LoanApplication>[])new ArrayList[6];
 	//qApprovalSet = new ArrayList<LoanApplication>[6];
 
@@ -42,12 +43,12 @@ public class FSB extends AOSimulationModel
 	HQDataClerks rgHQDataClerks = new HQDataClerks();
 	
 	
-	public double getAvgApprovalTurnAroundTime(){ return output.getAvgApprovalTurnAroundTime();}
+	public double getAvgApprovalTurnAroundTime(int origin){ return output.getAvgApprovalTurnAroundTime(origin);}
 	public double getAvgTotalTurnAroundTime(){ return output.getAvgTotalTurnAroundTime();}
 	
-	public void clearAvgApprovalTurnAroundTime() { output.clearAvgApprovalTurnAroundTime();}
+	public void clearAvgApprovalTurnAroundTime(int origin) { output.clearAvgApprovalTurnAroundTime(origin);}
 	public void clearAvgTotalTurnAroundTime() { output.clearAvgTotalTurnAroundTime();}
-	
+		
 	
 
 	// Constructor

@@ -12,11 +12,11 @@ class Experiment
    {
     
        int numClerks = 8;
-       int[] numOfficers = {1,1,1,1,1,1};
+       int[] numOfficers = {4,2,6,3,2,2};
        double pcntError = 0.1;
        
        
-       double startTime=0.0, endTime=600.0;
+       double startTime=0.0, endTime=6000.0;
        RandomSeedGenerator rsg = new RandomSeedGenerator();
        Seeds sds = new Seeds(rsg);
        // Simulation object
@@ -29,6 +29,7 @@ class Experiment
        // Case 1
        System.out.println(" Case 1");
        double turnaroundTime = 41;
+       double districtTurnAround[] = new double[6];
        while (turnaroundTime > 28){
     	   
     		   
@@ -39,12 +40,14 @@ class Experiment
     		 
     		   
     		   turnaroundTime = mname.getAvgTotalTurnAroundTime();
-    		   
+    		  
+    		   System.out.println("REAL TURN AROUND TIME = " + turnaroundTime);
     		   for (int i = 0; i < 6; i++){
-    			   
-    			   if (turnaroundTime > 28)
+    			   districtTurnAround[i] = mname.getAvgApprovalTurnAroundTime(i);
+    			   if (districtTurnAround[i] > 28)
     				   numOfficers[i]++;
-    			   System.out.println("number of officers at district: " +i+" = "+ mname.rgOfficers[i].numOfficers); 
+    			   System.out.println("number of officers at district: " +i+" = "+ mname.rgOfficers[i].numOfficers + 
+    					   "after officers time : = " + districtTurnAround[i]); 
     		   }
        }
           // See examples for hints on collecting output
