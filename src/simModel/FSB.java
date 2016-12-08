@@ -136,15 +136,27 @@ public class FSB extends AOSimulationModel
 		{
 			LoanApproval act = new LoanApproval(this);
 			act.startingEvent();
+			//rgOfficers[0].print();
 			
 			System.out.println(" SIZE OF DATA ENTRY QUEUE IN LOAN APPROVAL -> " +this.qDataEntryWaiting.size() +" with group vaiable of loan officers at boise -> " +  rgOfficers[0].getN() );
 		//	System.out.println(" Location of loan app IN LOAN APPROVAL -> " +this.qDataEntryWaiting.get(0).uOrig);
 			scheduleActivity(act);
-			System.out.println(" Dist1 -> " +  rgOfficers[1].getN() );
-			System.out.println(" Dist2 -> " +  rgOfficers[2].getN() );
-			System.out.println(" Dist3 -> " +  rgOfficers[3].getN() );
-			System.out.println(" Dist4 -> " +  rgOfficers[4].getN() );
-			System.out.println(" Dist5 -> " +  rgOfficers[5].getN() );
+			System.out.println(" Dist1 -> has this many loans  " +  rgOfficers[1].getN()  );
+			System.out.println("the loan app ids at this district is " );
+			rgOfficers[1].print();
+			
+			System.out.println(" Dist2 -> has this many loans " +  rgOfficers[2].getN() );
+			System.out.println("the loan app ids at this district is " );
+			rgOfficers[2].print();
+			System.out.println(" Dist3 -> has this many loans " +  rgOfficers[3].getN() );
+			System.out.println("the loan app ids at this district is " );
+			rgOfficers[3].print();
+			System.out.println(" Dist4 -> has this many loans" +  rgOfficers[4].getN() );
+			System.out.println("the loan app ids at this district is " );
+			rgOfficers[4].print();
+			System.out.println(" Dist5 ->  has this many loans" +  rgOfficers[5].getN() );
+			System.out.println("the loan app ids at this district is " );
+			rgOfficers[5].print();
 			
 			statusChanged = true;
 		}

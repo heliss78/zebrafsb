@@ -11,7 +11,7 @@ class Experiment
    public static void main(String[] args)
    {
     
-       int numClerks = 30;
+       int numClerks = 8;
        int[] numOfficers = {1,1,1,1,1,1};
        double pcntError = 0.1;
        
@@ -44,7 +44,7 @@ class Experiment
     			   
     			   if (turnaroundTime > 28)
     				   numOfficers[i]++;
-    			   System.out.println("number of officers at district: " +i+" "+ mname.rgOfficers[i].numOfficers); 
+    			   System.out.println("number of officers at district: " +i+" = "+ mname.rgOfficers[i].numOfficers); 
     		   }
        }
           // See examples for hints on collecting output

@@ -27,7 +27,7 @@ public class Officers {
 	
 	public void print(){
 		for(LoanApplication a: group){
-			System.out.println("LOAN APPLICATION IN OFFICERs : " + a.id);
+			System.out.println("LOAN APPLICATION id IN OFFICERs : " + a.id);
 		}
 	}
 	

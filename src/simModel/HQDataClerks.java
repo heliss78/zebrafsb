@@ -28,7 +28,7 @@ public class HQDataClerks {
 	
 	public void print(){
 		for(LoanApplication a: group){
-			System.out.println("LOAN APPLICATION IN OFFICERs XYZXYZ : " + a.id);
+			System.out.println("Application id in Data Entry now  : " + a.id);
 		}
 	}
 
