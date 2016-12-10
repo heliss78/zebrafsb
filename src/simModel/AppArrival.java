@@ -10,7 +10,6 @@ public class AppArrival extends ScheduledAction {
 	
 	protected double timeSequence() {
 		
-		// TODO Auto-generated method stub
 		return (model.rvp.duLoanAppArrival());
 	}
 
@@ -18,7 +17,8 @@ public class AppArrival extends ScheduledAction {
 	protected void actionEvent() {
 		LoanApplication icLoanApplication = new LoanApplication();
 		icLoanApplication.id = this.id;
-		System.out.println("APPLICATION ID IS: " + id);
+		//System.out.println(" SIZE OF DATA ENTRY QUEUE in app arrivals -> " +model.qDataEntryWaiting.size() );
+		//System.out.println("APPLICATION ID IS: " + id);
 		id++;
 		icLoanApplication.uOrig = model.rvp.uLoanAppOrigin();
 		icLoanApplication.startTime = model.getClock();
@@ -26,7 +26,6 @@ public class AppArrival extends ScheduledAction {
 		model.qDataEntryWaiting.add(icLoanApplication);
 		
 		
-		// TODO Auto-generated method stub
 		
 	}
 

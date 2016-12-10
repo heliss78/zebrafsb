@@ -24,19 +24,17 @@ class Output {
 	}
 
 	protected double getAvgApprovalTurnAroundTime(int origin) {
-		// GAComment: need to build an array of 5 double values to provide the 6
-		// output values, one from each district
 		
 		phiICapprovalTurnAround[origin].computePhiDSOVs();
-		System.out.println("TOTAL TURN AROUND TIME AT LOCATION " +phiICapprovalTurnAround[origin].getMean());
+		//System.out.println("TOTAL TURN AROUND TIME AT LOCATION:  " +origin + " is " + +phiICapprovalTurnAround[origin].getMean());
 		return (phiICapprovalTurnAround[origin].getMean());
 
 	}
 
 	protected double getAvgTotalTurnAroundTime() {
 		phiICtotalTurnAround.computePhiDSOVs();
-		// GAComment - what is the followint output about?
-		System.out.println("TOTAL TURN AROUND TIME  ______" + phiICtotalTurnAround.getMean());
+		
+		//System.out.println("TOTAL TURN AROUND TIME  ______" + phiICtotalTurnAround.getMean());
 
 		return (phiICtotalTurnAround.getMean());
 
@@ -50,14 +48,4 @@ class Output {
 		phiICtotalTurnAround.clearSet();
 	}
 
-	// Use OutputSequence class to define Trajectory and Sample Sequences
-	// Trajectory Sequences
-
-	// Sample Sequences
-
-	// DSOVs available in the OutputSequence objects
-	// If seperate methods required to process Trajectory or Sample
-	// Sequences - add them here
-
-	// SSOVs
 }

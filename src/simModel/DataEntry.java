@@ -15,7 +15,7 @@ public class DataEntry extends ConditionalActivity {
 		
 		
 		// GAComment:  small detail but order of logic expression not identical to the one in the CM
-		return (model.qDataEntryWaiting.size() !=0 && model.rgHQDataClerks.n < model.rgHQDataClerks.numClerks);
+		return (model.qDataEntryWaiting.size() !=0 && model.rgHQDataClerks.getN() < model.rgHQDataClerks.numClerks);
 	}
 	
 
@@ -31,6 +31,7 @@ public class DataEntry extends ConditionalActivity {
 		// TODO Auto-generated method stub
 		icLoanApplication = model.qDataEntryWaiting.remove(0);
 		
+		
 		model.rgHQDataClerks.insert(icLoanApplication);
 		//model.rgHQDataClerks.n++;  // GACOmment: this is not required, since the HashSet object will maintain this value.  Note there is not CM equivalent of this instruction.
 		
@@ -45,7 +46,7 @@ public class DataEntry extends ConditionalActivity {
 		//model.output.phiICtotalTurnAround.put(model.getClock(), icLoanApplication.endDataEntryTime);
 		model.rgHQDataClerks.remove(icLoanApplication);
 		model.qApprovalSet[icLoanApplication.uOrig].add(icLoanApplication); 
-		System.out.println("DATA ENTRY AVG TIME: " + (icLoanApplication.endDataEntryTime-icLoanApplication.startTime));
+		//System.out.println("DATA ENTRY AVG TIME: " + (icLoanApplication.endDataEntryTime-icLoanApplication.startTime));
 		// GAComment: this should be model.qApprovalWaiting[icLoanApplication.uOrigin].icLoanApplication
 		                                                   // Inconsistence defnition of the SET of ApprovalWaiting entities.  Name is wrong.
 		                                                   // Finally all applications are added to Q.ApprovalWiating[0]

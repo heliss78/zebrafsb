@@ -4,8 +4,7 @@ import java.util.HashSet;
 
 public class Officers {
 	
-	int n;  // GAComment: not required - maintained by the HashSet objects.
-
+	
 	public int numOfficers; // number of loan officers at each district
 	
 	
@@ -21,14 +20,10 @@ public class Officers {
 		
 	}
 	int getN(){
-		return group.size();//ureturns number of LoanApplications being processed
+		return group.size();//returns number of LoanApplications being processed
 		
 	}
 	
-	public void print(){
-		for(LoanApplication a: group){
-			System.out.println("LOAN APPLICATION id IN OFFICERs : " + a.id);
-		}
-	}
+	
 	
 }

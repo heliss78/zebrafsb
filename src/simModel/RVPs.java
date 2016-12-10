@@ -44,7 +44,7 @@ class RVPs
 	// GAComment - move the following declarations to the method duLoandAppArrival.
 	/* Random Variate Procedure for Arrivals */
 	private Exponential interArrDist;  // Exponential distribution for interarrival times
-	private final double WMEAN1=1.4;
+	private final double WMEAN1=1.5;
 	private boolean firstApplication = true;
 	
 	
@@ -80,10 +80,6 @@ class RVPs
 		return(loc);
 	}
 	
-	
-	
-	/////// Random Variate Procedure uDistrictProcessingTime
-	
 	private Uniform districtProcessingTimeDist;
 	private Uniform districtProcessingTimeWEDist;
 	
@@ -117,10 +113,6 @@ class RVPs
 	    	
 	    }
 	    
-
-       // nxtInterArr = interArrDist.nextDouble();
-	    // Note that interarrival time is added to current
-	    // clock value to get the next arrival time.
 	    return(nextTime);
 	}
 
