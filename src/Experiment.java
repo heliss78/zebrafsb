@@ -11,7 +11,7 @@ class Experiment
 {
    public static void main(String[] args)
    {
-    
+	   
        int numClerks = 30;
        int[] numOfficers = {4,2,6,3,2,2};
        double pcntError = 0.05;

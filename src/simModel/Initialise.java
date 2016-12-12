@@ -18,20 +18,8 @@ class Initialise extends ScheduledAction
 
 	protected void actionEvent() 
 	{
-		
-		
-		// GAComment: the vollowing code should be revived.  Simply make the parameter numOfficersDistrict a
-		//            class variable so it can be accessed here. i.e. ... numOfficers = model.numOfficersDistrict[i]
-		/*for(int i =0;i<6;i++){
-			model.rgOfficers[i].numOfficers = model.rgOfficers[i].numOfficers;
-			
-		}*/
-			
-		
-		
-		
-		// System Initialisation
-                // Add initilisation instructions 
+
+               
 	}
 	
 
